@@ -52,7 +52,7 @@ function loadStream(adapter as object) as void
         '     return valid_selected_stream_url
         '  end function
     }
-    print request.url
+
     requestResult = adapter.requestStream(request) ' Required
     if requestResult["error"] <> invalid
         print "Error requesting stream ";requestResult
