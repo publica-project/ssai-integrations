@@ -2,17 +2,21 @@
 
 Test Roku application showing how to integrate RAF (Roku Ad Framework) with Publica SSAI server.
 
+## Integration entry point
+
+`components/PublicaTask.brs` -> `runTask()`
+
 ## How to test
 
 [Developer environment setup](https://developer.roku.com/docs/developer-program/getting-started/developer-setup.md)
 
 Zip up the roku app:
-  - assets/
-  - components/
-  - images/
-  - lib/
-  - source/
-  - manifest
+  - `assets/`
+  - `components/`
+  - `images/`
+  - `lib/`
+  - `source/`
+  - `manifest`
 
 Then upload the archive to your Roku device.
 
