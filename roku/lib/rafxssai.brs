@@ -798,7 +798,7 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             })
             m.pod = invalid
         else if "AdBegin" = xobj.xtype
-            m.pod.ads[xobj.adindex].duration = xobj.duration
+            m.pod.ads = xobj.data
             m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.IMPRESSION, {
                 event: m.sdk.AdEvent.IMPRESSION
                 position: position
@@ -838,22 +838,12 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
 
     strmMgr.createPod = function(xobj as object) as dynamic
         pod = {
-            viewed: false
+            viewed: true
             renderSequence: "midroll"
             duration: xobj.duration
             tracking: []
             ads: []
         }
-        for i = 1 to xobj.adcount
-            ad = {
-                duration: 0
-                streamFormat: "hls"
-                adServer: m.mediaURL
-                streams: CreateObject("roArray", 0, true)
-                tracking: CreateObject("roArray", 0, true)
-            }
-            pod.ads[i-1] = ad
-        end for
         return pod
     end function
 
@@ -904,6 +894,7 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
     strmMgr.rgx_duration = createObject("roRegEx", "DURATION=([\d+[\.\d+]*)", "")
     strmMgr.rgx_count = createObject("roRegEx", "COUNT=(\d+)", "")
     strmMgr.rgx_index = createObject("roRegEx", "INDEX=(\d+)", "")
+    strmMgr.rgx_data = createObject("roRegEx", "DATA=([\w+/=\+]+)", "")
 
     strmMgr.parseXMarker = function(ext_x_marker as string) as object
         xobj = {
@@ -913,6 +904,30 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             adcount: val(m.extract(ext_x_marker, m.rgx_count, "0"))
             adindex: val(m.extract(ext_x_marker, m.rgx_index, "0"))
         }
+
+        if xobj.xtype = "AdBegin"
+            xdata = m.extract(ext_x_marker, m.rgx_data, "")
+            ba = createObject("roByteArray")
+            ba.fromBase64String(xdata)
+            xmlstr = ba.toAsciiString()
+            if xmlstr = invalid then return xobj
+
+            adIface = m.sdk.getRokuAds()
+            obj = adIface.parser.parse(xmlstr, "")
+            if obj = invalid then return xobj
+
+            obj_type = type(obj)
+            if obj_type = "roAssociativeArray" and obj["adpods"] <> invalid and obj.adpods.count() > 0
+                ads = []
+                for each adpod in obj.adpods
+                    if invalid <> adpod["ads"] and 0 < adpod.ads.count()
+                        ads.append(adpod.ads)
+                    end if
+                end for
+                xobj.data = ads
+            end if
+        end if
+
         return xobj
     end function
 

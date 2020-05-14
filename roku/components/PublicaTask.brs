@@ -81,17 +81,24 @@ function loadStream(adapter as object) as void
     m.top.video.EnableCookies()
 
     '
-    '   2.4  other RAF settings
+    '   2.4  RAF settings
     '
-    adIface = Roku_Ads()
-    ' https://developer.roku.com/docs/developer-program/advertising/integrating-roku-advertising-framework.md#enabling-nielsen-digital-ad-ratings
-    adIface.enableAdMeasurements(true) ' Required
-    ' adIface.setContentLength()    ' Set app/content specific info
-    adIface.enableNielsenDAR(true)
-    ' adIface.setNielsenProgramId() ' Set app/content specific info
-    adIface.setNielsenGenre("GV")
-    adIface.setNielsenAppId("P2871BBFF-1A28-44AA-AF68-C7DE4B148C32")
-    adIface.setDebugOutput(true)
+    ' https://developer.roku.com/docs/developer-program/advertising/raf-api.md
+    raf = Roku_Ads()
+
+    ' General audience measurment
+    raf.enableAdMeasurements(true)
+    raf.setContentGenre("Romantic comedy", false)
+    raf.setContentId("test")
+    raf.setContentLength(300)
+
+    ' Nielsen DAR (Digital Ad Ratings)
+    raf.enableNielsenDAR(true)
+    raf.setNielsenGenre("GV")
+    raf.setNielsenAppId("P2871BBFF-1A28-44AA-AF68-C7DE4B148C32")
+    raf.setNielsenProgramId("Movie Title")
+
+    raf.setDebugOutput(true)
 end function
 
 function runLoop(adapter as object) as void
