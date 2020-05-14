@@ -1,5 +1,3 @@
-lat=1
-
 ------ Running dev 'Publica SSAI' main ------
 
 [RAF] Roku_Ads Framework version 2.1231
