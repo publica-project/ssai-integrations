@@ -798,7 +798,10 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             })
             m.pod = invalid
         else if "AdBegin" = xobj.xtype
-            m.pod.ads = xobj.data
+            m.pod.ads[xobj.adindex].duration = xobj.duration
+            if invalid <> xobj.data
+                m.pod.ads = xobj.data
+            end if
             m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.IMPRESSION, {
                 event: m.sdk.AdEvent.IMPRESSION
                 position: position
@@ -844,6 +847,16 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             tracking: []
             ads: []
         }
+        for i = 1 to xobj.adcount
+            ad = {
+                duration: 0
+                streamFormat: "hls"
+                adServer: m.mediaURL
+                streams: CreateObject("roArray", 0, true)
+                tracking: CreateObject("roArray", 0, true)
+            }
+            pod.ads[i-1] = ad
+        end for
         return pod
     end function
 
