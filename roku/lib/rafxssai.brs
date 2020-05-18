@@ -920,6 +920,8 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
 
         if xobj.xtype = "AdBegin"
             xdata = m.extract(ext_x_marker, m.rgx_data, "")
+            if "" = xdata then return xobj
+
             ba = createObject("roByteArray")
             ba.fromBase64String(xdata)
             xmlstr = ba.toAsciiString()
