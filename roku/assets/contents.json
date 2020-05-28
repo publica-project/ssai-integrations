@@ -3,12 +3,12 @@
         {
             "title": "lat=0",
             "description": "Add your test asset title and URL. Set trackingmode=simple or xmkr to fetch Ad Tracking info",
-            "url": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=20&live=0&preroll=1&ad_breaks=00:00:15&avod=1&cst=1&app_bundle=test.com&slot_count=1&is_lat=0&u=http://t2v8n7y4.stackpathcdn.com/hls/25a88c069c4011e99bf586e486acc64d/playlist.m3u8"
+            "url": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=20&live=0&preroll=1&ad_breaks=00:00:15&avod=1&app_bundle=test.com&slot_count=1&is_lat=0&did=bb0a7b7a-6fc7-5a45-afa3-9a40f1f7f13e&cst=1&u=http://t2v8n7y4.stackpathcdn.com/hls/25a88c069c4011e99bf586e486acc64d/playlist.m3u8"
         },
         {
             "title": "lat=1",
             "description": "Add your test asset title and URL. Set trackingmode=simple or xmkr to fetch Ad Tracking info",
-            "url": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=20&live=0&preroll=1&ad_breaks=00:00:15&avod=1&cst=1&app_bundle=test.com&slot_count=1&is_lat=1&u=http://t2v8n7y4.stackpathcdn.com/hls/25a88c069c4011e99bf586e486acc64d/playlist.m3u8"
+            "url": "https://stream-us-east-1.getpublica.com/playlist.m3u8?network_id=20&live=0&preroll=1&ad_breaks=00:00:15&avod=1&app_bundle=test.com&slot_count=1&is_lat=1&did=bb0a7b7a-6fc7-5a45-afa3-9a40f1f7f13e&cst=1&u=http://t2v8n7y4.stackpathcdn.com/hls/25a88c069c4011e99bf586e486acc64d/playlist.m3u8"
         }
     ]
 }

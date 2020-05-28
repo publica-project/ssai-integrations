@@ -40,6 +40,8 @@ end function
 function loadStream(adapter as object) as void
     if invalid = adapter then return
 
+    print m.top.testConfig.url
+
     '
     '  2.1 Compose request info
     '

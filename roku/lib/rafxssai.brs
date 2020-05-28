@@ -771,6 +771,7 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
 
         m.sdk.log(["X-Marker at position: ", position.tostr(), "  current strm pos: ", m.crrntPosSec.tostr()], 20)
         xobj = m.parseXMarker(ext_x_marker)
+        if invalid = xobj then return
         
         if m.history = invalid
             m.history = CreateObject("roAssociativeArray")
@@ -782,6 +783,8 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
         if abs(position - sgnode.position) > 15
             m.sdk.log(["WARNING: PodBegin X-Marker position: ", position.tostr(), " video.position: ", sgnode.position.tostr(), " diff more than 15sec"], 10)
         end if
+        
+        if invalid = m.pod then m.pod = m.createPod(xobj)
 
         if "PodBegin" = xobj.xtype
             m.pod = m.createPod(xobj)
@@ -917,6 +920,9 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             adcount: val(m.extract(ext_x_marker, m.rgx_count, "0"))
             adindex: val(m.extract(ext_x_marker, m.rgx_index, "0"))
         }
+        if invalid = xobj.xtype then return invalid
+        if 0 = xobj.adcount then return invalid
+        if xobj.adindex >= xobj.adcount then return invalid
 
         if xobj.xtype = "AdBegin"
             xdata = m.extract(ext_x_marker, m.rgx_data, "")
