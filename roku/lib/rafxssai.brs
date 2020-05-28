@@ -920,7 +920,7 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             adcount: val(m.extract(ext_x_marker, m.rgx_count, "0"))
             adindex: val(m.extract(ext_x_marker, m.rgx_index, "0"))
         }
-        if invalid = xobj.xtype then return invalid
+        if "" = xobj.xtype then return invalid
         if 0 = xobj.adcount then return invalid
         if xobj.adindex >= xobj.adcount then return invalid
 
