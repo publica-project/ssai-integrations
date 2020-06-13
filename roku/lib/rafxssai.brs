@@ -784,10 +784,11 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
             m.sdk.log(["WARNING: PodBegin X-Marker position: ", position.tostr(), " video.position: ", sgnode.position.tostr(), " diff more than 15sec"], 10)
         end if
         
-        if invalid = m.pod then m.pod = m.createPod(xobj)
+        if invalid = m.pod or invalid = m.pod.ads or m.pod.ads.Count() < xobj.adcount 
+            m.pod = m.createPod(xobj)
+        end if
 
         if "PodBegin" = xobj.xtype
-            m.pod = m.createPod(xobj)
             m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.POD_START, {
                 event: m.sdk.AdEvent.POD_START
                 position: position
@@ -803,7 +804,7 @@ function RAFX_getPublicaHLSPlugin(params as object) as object
         else if "AdBegin" = xobj.xtype
             m.pod.ads[xobj.adindex].duration = xobj.duration
             if invalid <> xobj.data
-                m.pod.ads = xobj.data
+                m.pod.ads[xobj.adindex] = xobj.data[0]
             end if
             m.sdk.eventCallbacks.doCall(m.sdk.AdEvent.IMPRESSION, {
                 event: m.sdk.AdEvent.IMPRESSION
