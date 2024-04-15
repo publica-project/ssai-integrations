@@ -1,2 +1,3 @@
-# ssai-integrations
-Collection of client side integration with publica ssai server
+# This Project Has Moved
+
+It can be found at https://github.com/integralads/publica-ssai-integrations
